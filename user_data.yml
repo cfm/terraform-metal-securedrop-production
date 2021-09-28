@@ -1,0 +1,18 @@
+#cloud-config
+#
+# Mimic the configuration expected from SecureDrop's "Set Up the
+# Servers" step:
+#
+# https://docs.securedrop.org/en/stable/servers.html
+
+users:
+  - name: sdadmin
+    groups: admin
+    sudo: ALL=(ALL) NOPASSWD:ALL
+
+runcmd:
+  - cp -Rp /root/.ssh ~sdadmin
+  - chown -R sdadmin:sdadmin ~sdadmin/.ssh
+
+  - apt-get update
+  - apt-get install -y systemd-timesyncd
